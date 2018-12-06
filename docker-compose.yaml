@@ -10,10 +10,10 @@ services:
     ports:
       - "8080"
     environment:
-      POSTGRES_DB: "meower"
-      POSTGRES_USER: "meower"
-      POSTGRES_PASSWORD: "123456"
-      NATS_ADDRESS: "nats:4222"
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      NATS_ADDRESS: ${NATS_ADDRESS}
   query:
     build: "."
     command: "query-service"
@@ -23,10 +23,10 @@ services:
     ports:
       - "8080"
     environment:
-      POSTGRES_DB: "meower"
-      POSTGRES_USER: "meower"
-      POSTGRES_PASSWORD: "123456"
-      NATS_ADDRESS: "nats:4222"
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      NATS_ADDRESS: ${NATS_ADDRESS}
       ELASTICSEARCH_ADDRESS: "elasticsearch:9200"
   pusher:
     build: "."
@@ -38,12 +38,12 @@ services:
     environment:
       NATS_ADDRESS: "nats:4222"
   postgres:
-    build: "./postgres"
+    build: "./docker/postgres"
     restart: "always"
     environment:
-      POSTGRES_DB: "meower"
-      POSTGRES_USER: "meower"
-      POSTGRES_PASSWORD: "123456"
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
   nats:
     image: "nats-streaming:0.9.2"
     restart: "always"
