@@ -2,7 +2,9 @@ version: "3.6"
 
 services:
   meow:
-    build: "."
+    env_file:
+      - ./.env
+    build: "./docker"
     command: "meow-service"
     depends_on:
       - "postgres"
@@ -10,12 +12,15 @@ services:
     ports:
       - "8080"
     environment:
+      POSTGRES_HOST: ${POSTGRES_HOST}
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       NATS_ADDRESS: ${NATS_ADDRESS}
   query:
-    build: "."
+    env_file:
+      - ./.env
+    build: "./docker"
     command: "query-service"
     depends_on:
       - "postgres"
@@ -23,13 +28,14 @@ services:
     ports:
       - "8080"
     environment:
+      POSTGRES_HOST: ${POSTGRES_HOST}
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       NATS_ADDRESS: ${NATS_ADDRESS}
       ELASTICSEARCH_ADDRESS: "elasticsearch:9200"
   pusher:
-    build: "."
+    build: "./docker"
     command: "pusher-service"
     depends_on:
       - "nats"
@@ -50,10 +56,81 @@ services:
   elasticsearch:
     image: 'docker.elastic.co/elasticsearch/elasticsearch:6.2.3'
   nginx:
-    build: "./nginx"
+    build: "./docker/nginx"
     ports:
       - "8080:80"
     depends_on:
       - "meow"
       - "query"
       - "pusher"
+
+
+  meow-dev:
+    env_file:
+      - ./.env
+    build: "./docker/dev/"
+    # command: "meow-service"
+    depends_on:
+      - "postgres-dev"
+      - "nats-dev"
+    ports:
+      - "8080"
+    environment:
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      NATS_ADDRESS: ${NATS_ADDRESS}
+    volumes:
+      - ./:/go/src/
+  query-dev:
+    env_file:
+      - ./.env
+    build: "./docker/dev/"
+    # command: "query-service"
+    depends_on:
+      - "postgres-dev"
+      - "nats-dev"
+    ports:
+      - "8080"
+      - "8091:8080"
+    environment:
+      POSTGRES_HOST: ${POSTGRES_HOST}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      NATS_ADDRESS: ${NATS_ADDRESS}
+      ELASTICSEARCH_ADDRESS: "elasticsearch-dev:9200"
+    volumes:
+      - ./:/go/src/
+  pusher-dev:
+    build: "./docker/dev"
+    # command: "pusher-service"
+    depends_on:
+      - "nats-dev"
+    ports:
+      - "8080"
+    environment:
+      NATS_ADDRESS: "nats:4222"
+    volumes:
+      - ./:/go/src/
+  postgres-dev:
+    build: "./docker/postgres"
+    restart: "always"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+  nats-dev:
+    image: "nats-streaming:0.9.2"
+    restart: "always"
+  elasticsearch-dev:
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.2.3'
+  nginx-dev:
+    build: "./docker/dev/nginx"
+    ports:
+      - "8089:80"
+    depends_on:
+      - "meow-dev"
+      - "query-dev"
+      - "pusher-dev"

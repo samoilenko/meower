@@ -13,6 +13,5 @@ require (
 	github.com/olivere/elastic v6.1.18+incompatible
 	github.com/pkg/errors v0.8.0
 	github.com/segmentio/ksuid v1.0.1
-	github.com/tinrab/meower v0.0.0-20180527150729-a817049dd1e2
 	github.com/tinrab/retry v1.0.0
 )

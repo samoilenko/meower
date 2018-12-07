@@ -8,14 +8,15 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/kelseyhightower/envconfig"
-	"github.com/tinrab/meower/db"
-	"github.com/tinrab/meower/event"
+	"meower/db"
+	"meower/event"
 	"github.com/tinrab/retry"
 )
 
 type Config struct {
 	PostgresDB       string `envconfig:"POSTGRES_DB"`
 	PostgresUser     string `envconfig:"POSTGRES_USER"`
+  PostgresHost     string `envconfig:"POSTGRES_HOST"`
 	PostgresPassword string `envconfig:"POSTGRES_PASSWORD"`
 	NatsAddress      string `envconfig:"NATS_ADDRESS"`
 }
@@ -37,7 +38,7 @@ func main() {
 
 	// Connect to PostgreSQL
 	retry.ForeverSleep(2*time.Second, func(attempt int) error {
-		addr := fmt.Sprintf("postgres://%s:%s@postgres/%s?sslmode=disable", cfg.PostgresUser, cfg.PostgresPassword, cfg.PostgresDB)
+		addr := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable", cfg.PostgresUser, cfg.PostgresPassword, cfg.PostgresHost, cfg.PostgresDB)
 		repo, err := db.NewPostgres(addr)
 		if err != nil {
 			log.Println(err)

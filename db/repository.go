@@ -3,7 +3,7 @@ package db
 import (
 	"context"
 
-	"github.com/tinrab/meower/schema"
+	"meower/schema"
 )
 
 type Repository interface {

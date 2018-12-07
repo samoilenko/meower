@@ -7,10 +7,10 @@ import (
 	"time"
 
 	"github.com/segmentio/ksuid"
-	"github.com/tinrab/meower/db"
-	"github.com/tinrab/meower/event"
-	"github.com/tinrab/meower/schema"
-	"github.com/tinrab/meower/util"
+	"meower/db"
+	"meower/event"
+	"meower/schema"
+	"meower/util"
 )
 
 func createMeowHandler(w http.ResponseWriter, r *http.Request) {

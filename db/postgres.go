@@ -5,7 +5,7 @@ import (
 	"database/sql"
 
 	_ "github.com/lib/pq"
-	"github.com/tinrab/meower/schema"
+	"meower/schema"
 )
 
 type PostgresRepository struct {
@@ -31,7 +31,7 @@ func (r *PostgresRepository) Close() {
 }
 
 func (r *PostgresRepository) InsertMeow(ctx context.Context, meow schema.Meow) error {
-	_, err := r.db.Exec("INSERT INTO meows(id, body, created_at) VALUES($1, $2, $3)", meow.ID, meow.Body, meow.CreatedAt)
+  _, err := r.db.Exec("INSERT INTO meows(id, body, created_at) VALUES($1, $2, $3)", meow.ID, meow.Body, meow.CreatedAt)
 	return err
 }
 

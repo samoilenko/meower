@@ -6,11 +6,11 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/tinrab/meower/db"
-	"github.com/tinrab/meower/event"
-	"github.com/tinrab/meower/schema"
-	"github.com/tinrab/meower/search"
-	"github.com/tinrab/meower/util"
+	"meower/db"
+	"meower/event"
+	"meower/schema"
+	"meower/search"
+	"meower/util"
 )
 
 func onMeowCreated(m event.MeowCreatedMessage) {

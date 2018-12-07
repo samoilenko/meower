@@ -5,7 +5,7 @@ import (
 	"encoding/gob"
 
 	"github.com/nats-io/go-nats"
-	"github.com/tinrab/meower/schema"
+	"meower/schema"
 )
 
 type NatsEventStore struct {

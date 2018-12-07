@@ -20,7 +20,5 @@ github.com/pkg/errors v0.8.0 h1:WdK/asTD0HN+q6hsWO3/vpuAkAr+tw6aNJNDFFf0+qw=
 github.com/pkg/errors v0.8.0/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/segmentio/ksuid v1.0.1 h1:O/0HN9qcXwqemHNVUT0L24al4IQLjwOFw5mWUy5wunE=
 github.com/segmentio/ksuid v1.0.1/go.mod h1:BXuJDr2byAiHuQaQtSKoXh1J0YmUDurywOXgB2w+OSU=
-github.com/tinrab/meower v0.0.0-20180527150729-a817049dd1e2 h1:HJ675iF4rjXY4DyrwW+MnIjPfsg2u4TwuPVbrsXqTmw=
-github.com/tinrab/meower v0.0.0-20180527150729-a817049dd1e2/go.mod h1:a1XWafElI2AAXnhNzDQttsxdNgdrRc7hN8Dkw4KE5l4=
 github.com/tinrab/retry v1.0.0 h1:u1x0cMZszwG44AaEeH8xx3Z1guNt8syzULeOsDhzg9s=
 github.com/tinrab/retry v1.0.0/go.mod h1:PWRlqYOz5dCyuZbxKhtQ60GN6OwSLwMxnjMqof4LIso=

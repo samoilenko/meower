@@ -3,7 +3,7 @@ package search
 import (
 	"context"
 
-	"github.com/tinrab/meower/schema"
+	"meower/schema"
 )
 
 type Repository interface {
