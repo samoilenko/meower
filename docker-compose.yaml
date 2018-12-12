@@ -126,11 +126,13 @@ services:
     restart: "always"
   elasticsearch-dev:
     image: 'docker.elastic.co/elasticsearch/elasticsearch:6.2.3'
+    container_name: elasticsearch-dev
   nginx-dev:
     build: "./docker/dev/nginx"
     ports:
       - "8089:80"
     depends_on:
-      - "meow-dev"
+      - elasticsearch-dev
+#      - "meow-dev"
       - "query-dev"
-      - "pusher-dev"
+#      - "pusher-dev"

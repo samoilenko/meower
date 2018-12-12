@@ -66,6 +66,7 @@ func searchMeowsHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Read parameters
 	query := r.FormValue("query")
+
 	if len(query) == 0 {
 		util.ResponseError(w, http.StatusBadRequest, "Missing query parameter")
 		return

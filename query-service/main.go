@@ -43,6 +43,8 @@ func main() {
 	retry.ForeverSleep(2*time.Second, func(attempt int) error {
 	  fmt.Println(cfg.PostgresHost)
 	  fmt.Println(cfg.PostgresPassword)
+	  fmt.Println(cfg.ElasticsearchAddress)
+
 		addr := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable", cfg.PostgresUser, cfg.PostgresPassword, cfg.PostgresHost, cfg.PostgresDB)
 		repo, err := db.NewPostgres(addr)
 		if err != nil {
