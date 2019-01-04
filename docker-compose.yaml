@@ -69,6 +69,8 @@ services:
     env_file:
       - ./.env
     build: "./docker/dev/"
+    working_dir: /go/src/meow-service
+    command: gin run main.go
     # command: "meow-service"
     depends_on:
       - "postgres-dev"
@@ -87,6 +89,8 @@ services:
     env_file:
       - ./.env
     build: "./docker/dev/"
+    working_dir: /go/src/query-service
+    command: gin run main.go
     # command: "query-service"
     depends_on:
       - "postgres-dev"
@@ -104,7 +108,11 @@ services:
     volumes:
       - ./:/go/src/
   pusher-dev:
+    env_file:
+      - ./.env
     build: "./docker/dev"
+    working_dir: /go/src/pusher-service
+    command: gin run main.go
     # command: "pusher-service"
     depends_on:
       - "nats-dev"
@@ -133,6 +141,6 @@ services:
       - "8089:80"
     depends_on:
       - elasticsearch-dev
-#      - "meow-dev"
+      - "meow-dev"
       - "query-dev"
-#      - "pusher-dev"
+      - "pusher-dev"
